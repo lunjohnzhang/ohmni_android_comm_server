@@ -4,7 +4,7 @@ var app = express();
 app.get('/', function (req, res) {
     res.send(JSON.stringify({ Hello: 'World'}));
 });
-app.get('/android', function (req, res) {
+app.post('/android', function (req, res) {
     console.log("message gotten from android");
     console.log(req);
     res.send(JSON.stringify(

@@ -1,6 +1,8 @@
 var http = require('http');
 const express = require('express');
 const enableWs = require('express-ws')
+var bodyParser = require('body-parser')
+
 var overlayWs = null;
 // var ws = require('websocket'); 
 
@@ -8,6 +10,12 @@ var overlayWs = null;
 var port = process.env.PORT || 3000;
 const app = express();
 
+// configure the server
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 enableWs(app)
 
 app.ws('/echo', (ws, req) => {
@@ -18,11 +26,6 @@ app.ws('/echo', (ws, req) => {
         console.log(message);
         ws.send(message);
     });
-
-    // called when the connection is closed
-    ws.on('close', () => {
-        console.log('Socket connection closed');
-    });
 })
 
 
@@ -31,13 +34,13 @@ app.get('/', function (req, res) {
 });
 app.post('/android', function (req, res) {
     console.log("message gotten from android");
-    console.log(req);
-    res.send(JSON.stringify(
-        {
-            server: "message gotten"
-        }));
+
+    console.log(req.body);
+    res.send(JSON.stringify(req.body));
+
+    // forward the message from Android app to the overlay
     try {
-        overlayWs.send("gotten message from Android and I am forwarding the message to you");
+        overlayWs.send(JSON.stringify(req.body));
     } catch (error) {
         console.log("Send websocket message failed");
     }

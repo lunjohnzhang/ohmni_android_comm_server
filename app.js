@@ -22,9 +22,11 @@ app.ws('/echo', (ws, req) => {
     ws.on('message', msg => {
         console.log("message from client: " + msg);
         overlayWs = ws;
-        const message = "Connection to overlay established"
-        console.log(message);
-        ws.send(message);
+        const message = {
+            "message": "Connection to overlay established"
+        }
+        console.log(JSON.stringify(message));
+        ws.send(JSON.stringify(message));
     });
 })
 

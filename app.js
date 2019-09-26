@@ -30,10 +30,13 @@ app.ws('/echo', (ws, req) => {
     });
 })
 
-
+// demp end point
 app.get('/', function (req, res) {
     res.send(JSON.stringify({ Hello: 'World'}));
 });
+
+
+// forward data from Android to the overlay
 app.post('/android', function (req, res) {
     console.log("message gotten from android");
 
@@ -46,6 +49,11 @@ app.post('/android', function (req, res) {
     } catch (error) {
         console.log("Send websocket message failed");
     }
+});
+
+// test end point for overlay
+app.get('/test', function(req, res) {
+    res.sendFile('actual_module/overlay.html', {root: __dirname })
 });
 
 

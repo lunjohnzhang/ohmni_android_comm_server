@@ -53,7 +53,7 @@ app.post('/android', function (req, res) {
 
 // test end point for overlay
 app.get('/test', function(req, res) {
-    res.sendFile('actual_module/overlay.html', {root: __dirname })
+    res.sendFile('actual_model/overlay.html', {root: __dirname })
 });
 
 

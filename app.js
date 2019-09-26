@@ -13,6 +13,7 @@ const app = express();
 // configure the server
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(app.use('/js', express.static(__dirname + '/actual_model/js')))
 
 // parse application/json
 app.use(bodyParser.json())

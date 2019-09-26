@@ -2,6 +2,7 @@ var http = require('http');
 const express = require('express');
 const enableWs = require('express-ws')
 var bodyParser = require('body-parser')
+const path = require('path');
 
 var overlayWs = null;
 // var ws = require('websocket'); 
@@ -13,7 +14,7 @@ const app = express();
 // configure the server
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(app.use('/js', express.static(__dirname + '/actual_model/js')))
+app.use(app.use('/js', express.static(path.resolve(__dirname, '/actual_model/js'))))
 
 // parse application/json
 app.use(bodyParser.json())
